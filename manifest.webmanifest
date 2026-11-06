@@ -1,0 +1,17 @@
+{
+  "name": "솔숲 호숫가 캠핑장",
+  "short_name": "솔숲 캠핑장",
+  "description": "숲속 호숫가에서 모닥불을 바라보며 쉬어 가는 3D 캠핑장",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#0f1d2b",
+  "theme_color": "#0f1d2b",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
