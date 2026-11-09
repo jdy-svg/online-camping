@@ -103,3 +103,34 @@ self.addEventListener('fetch', (event) => {
     }),
   );
 });
+
+// App notifications from the camp server (a kept seat about to go): shown, and tapping one opens
+// the camp (or brings it to the front if it is already open).
+self.addEventListener('push', (event) => {
+  let m = {};
+  try {
+    m = event.data ? event.data.json() : {};
+  } catch {
+    m = { body: event.data ? event.data.text() : '' };
+  }
+  event.waitUntil(
+    self.registration.showNotification(m.title || '솔숲 호숫가 캠핑장', {
+      body: m.body || '',
+      icon: './icons/icon-192.png',
+      badge: './icons/favicon-64.png',
+      tag: m.tag || 'camp',
+      data: { url: m.url || './' },
+    }),
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((list) => {
+      const open = list.find((c) => new URL(c.url).origin === self.location.origin);
+      if (open) return open.focus();
+      return self.clients.openWindow(new URL('./', self.location.href).href);
+    }),
+  );
+});
