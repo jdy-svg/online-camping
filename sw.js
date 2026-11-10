@@ -69,6 +69,8 @@ self.addEventListener('message', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  // Which build is newest: always asked of the site, never kept.
+  if (new URL(req.url).pathname.endsWith('/version.json')) return;
   if (req.mode === 'navigate') {
     // Always ask the site for the newest page (GitHub Pages lets browsers keep it for 10 minutes,
     // which held updates back): new builds arrive on the next opening.
